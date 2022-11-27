@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"go-simple_bank/util"
 	"log"
 	"os"
 	"testing"
@@ -12,15 +13,13 @@ import (
 var testQueries *Queries
 var testDB *sql.DB
 
-const (
-	dbDriver = "postgres"
-	dbSource = "postgresql://root:12345secret@localhost:5432/simple_bank?sslmode=disable"
-)
-
 func TestMain(m *testing.M) {
-	var err error
+	config, err := util.LoadConfig("../../")
+	if err != nil {
+		log.Fatal("cannot load configs: ", err)
+	}
 
-	testDB, err = sql.Open(dbDriver, dbSource)
+	testDB, err = sql.Open(config.DBDriver, config.DBSource)
 	if err != nil {
 		log.Fatal("cannot connect to database: ", err)
 	}

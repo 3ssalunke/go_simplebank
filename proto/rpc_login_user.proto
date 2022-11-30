@@ -8,7 +8,7 @@ import "google/protobuf/timestamp.proto";
 option go_package = "go-grpc-2/pb";
 
 message LoginUserRequest{
-    string email = 1;
+    string username = 1;
     string password = 2;
 }
 
